@@ -1,7 +1,9 @@
 package kittyface;
 
-import javax.swing.*;
+import java.io.*;
 import java.net.*;
+import javax.swing.*;
+import javax.xml.parsers.*;
 import org.w3c.dom.*;
 
 class WebPanel extends JPanel {
@@ -28,8 +30,11 @@ class WebPanel extends JPanel {
 	}
 	
 	public void load(){
-		// set domTree to have a value based on url
-		// javax.xml has parser for creating Documents
+		try{
+			domTree = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url.openStream());
+		} catch (Exception e) {
+			e.printStackTrace(); // Baaaad. fix this
+		}
 	}
 	
 	public void render(){
