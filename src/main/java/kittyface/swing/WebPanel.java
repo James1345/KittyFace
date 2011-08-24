@@ -41,12 +41,12 @@ public class WebPanel extends JPanel {
 		}
 	}
 	
-	public loadFromURL(URL url){
+	public void loadFromURL(URL url){
 		setUrl(url);
 		load();
 	}
 	
-	public loadFromURL(String url){
+	public void loadFromURL(String url){
 		setUrl(url);
 		load();
 	}

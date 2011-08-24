@@ -1,5 +1,7 @@
 package kittyface;
 
+import kittyface.swing.*;
+
 public class Test {
 
 	public static void main(String[] args){
