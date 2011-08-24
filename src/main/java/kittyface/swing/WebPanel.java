@@ -1,4 +1,4 @@
-package kittyface;
+package kittyface.swing;
 
 import java.io.*;
 import java.net.*;
@@ -39,6 +39,16 @@ public class WebPanel extends JPanel {
 			// Other exceptions
 			e.printStackTrace(); 
 		}
+	}
+	
+	public loadFromURL(URL url){
+		setUrl(url);
+		load();
+	}
+	
+	public loadFromURL(String url){
+		setUrl(url);
+		load();
 	}
 	
 	public void render(){

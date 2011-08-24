@@ -1,4 +1,4 @@
-package kittyface;
+package kittyface.swing;
 
 import javax.swing.*;
 
