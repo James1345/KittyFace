@@ -32,8 +32,10 @@ class WebPanel extends JPanel {
 	public void load(){
 		try{
 			domTree = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url.openStream());
-		} catch (Exception e) {
-			e.printStackTrace(); // Baaaad. fix this
+		} catch (IOException e) {
+			e.printStackTrace(); 
+		} catch (SAXException e) {
+			// Parse exception, try html parser if not well formed xml.
 		}
 	}
 	
