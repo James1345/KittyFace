@@ -7,13 +7,18 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-class WebPanel extends JPanel {
+public class WebPanel extends JPanel {
 
 	protected URL url = null;
 	protected Document domTree = null;
 	
 	protected Mode mode = Mode.BASIC;
 	
+        public WebPanel() {
+            
+        }
+        
+        
 	public void setMode(Mode mode){
 		this.mode = mode;
 	}
