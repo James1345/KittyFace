@@ -1,5 +1,6 @@
 package kittyface.swing;
 
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
@@ -52,22 +53,41 @@ public class WebPanel extends JPanel {
 	}
 	
 	public void render(){
-		// Self explanatory what this should do
+		repaint();
 	}
 
-	public void printDomTree(){
-		printNode(domTree);
+	@Override
+	public void paintComponent(Graphics g){
+		Graphics2D g2 = (Graphics2D)g;
+		g2.drawString(printNode(domTree), 0, 32);
+		
+		// Need to organise rendering better
+		// need more classes (e.g. hyperlinks)
+		// going to need more handlers
 	}
 	
-	private void printNode(Node n){
+	// TEST METHODS ONLY BELOW HERE //
+	
+	public void printDomTree() {
+		System.out.println(printNode(domTree));
+	}
+	
+	private String printNode(Node n){
+		
 		// Testing output
+		String printNode = "";
 		NodeList nodes = n.getChildNodes();
 		for(int i = 0; i < nodes.getLength(); i++) {
 			String line = nodes.item(i).getNodeValue();
-			if( line != null && line != "\n")
-				System.out.println(line);
-			printNode(nodes.item(i));
-		}	
+			if( line != null){
+				printNode += line.trim();
+				if(line != ""){
+					printNode += "\n";
+				}
+			}
+			printNode += printNode(nodes.item(i));
+		}
+		return printNode;
 	}
 
 }
