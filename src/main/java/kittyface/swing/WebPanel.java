@@ -52,8 +52,20 @@ public class WebPanel extends JPanel {
 	}
 	
 	public void render(){
-		// Self explanatory
+		// Self explanatory what this should do
 	}
 
+	public void printDomTree(){
+		printNode(domTree);
+	}
+	
+	private void printNode(Node n){
+		// Testing output
+		NodeList nodes = n.getChildNodes();
+		for(int i = 0; i < nodes.getLength(); i++) {
+			System.out.println(nodes.item(i).getNodeName());
+			printNode(nodes.item(i));
+		}	
+	}
 
 }

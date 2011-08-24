@@ -9,6 +9,7 @@ public class Test {
 		WebPanel p = new WebPanel();
 		p.setUrl("http://mithos.github.com/Sedenion/index.html");
 		p.load();
+		p.printDomTree();
 	}
 
 }
