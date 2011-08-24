@@ -1,10 +1,11 @@
-package kittyface;
+package main.java.kittyface;
 
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 class WebPanel extends JPanel {
 
@@ -19,6 +20,7 @@ class WebPanel extends JPanel {
 	
 	public void setUrl(URL url){
 		this.url = url;
+                this.load();
 	}
 	
 	public void setUrl(String url){
@@ -27,6 +29,7 @@ class WebPanel extends JPanel {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+                this.load();
 	}
 	
 	public void load(){
@@ -36,6 +39,9 @@ class WebPanel extends JPanel {
 			e.printStackTrace(); 
 		} catch (SAXException e) {
 			// Parse exception, try html parser if not well formed xml.
+                } catch (Exception e) {
+                        // Other exceptions
+			e.printStackTrace(); 
 		}
 	}
 	
