@@ -12,29 +12,20 @@ public class WebPanel extends JPanel {
 	protected URL url = null;
 	protected Document domTree = null;
 	
-	protected Mode mode = Mode.BASIC;
-	
-        public WebPanel() {
-            
-        }
-        
-        
-	public void setMode(Mode mode){
-		this.mode = mode;
-	}
+	public final WebPanelSettings settings = new WebPanelSettings();
 	
 	public void setUrl(URL url){
 		this.url = url;
-                this.load();
 	}
 	
-	public void setUrl(String url){
+	public void setUrl(String urlString){
+		
 		try{
-			this.url = new URL(url);
+			URL newUrl = new URL(urlString);
+			this.setUrl(newUrl);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-                this.load();
 	}
 	
 	public void load(){
