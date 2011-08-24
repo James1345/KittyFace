@@ -1,7 +1,4 @@
-package test.java.kittyface;
-
-import main.java.kittyface.*;
-
+package kittyface;
 
 public class Test {
 

@@ -1,4 +1,4 @@
-package main.java.kittyface;
+package kittyface;
 
 public enum Mode {
 	BASIC, // No css, no javascript

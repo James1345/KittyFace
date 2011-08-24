@@ -1,4 +1,4 @@
-package main.java.kittyface;
+package kittyface;
 
 import java.io.*;
 import java.net.*;
@@ -44,8 +44,8 @@ public class WebPanel extends JPanel {
 			e.printStackTrace(); 
 		} catch (SAXException e) {
 			// Parse exception, try html parser if not well formed xml.
-                } catch (Exception e) {
-                        // Other exceptions
+		} catch (Exception e) {
+			// Other exceptions
 			e.printStackTrace(); 
 		}
 	}
