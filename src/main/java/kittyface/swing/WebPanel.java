@@ -64,7 +64,7 @@ public class WebPanel extends JPanel {
 		NodeList nodes = n.getChildNodes();
 		for(int i = 0; i < nodes.getLength(); i++) {
 			String line = nodes.item(i).getNodeValue();
-			if( line != null && line != "\n")
+			if( line != null || line != "\n")
 				System.out.println(line);
 			printNode(nodes.item(i));
 		}	
