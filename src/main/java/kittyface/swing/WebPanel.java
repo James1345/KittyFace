@@ -2,7 +2,7 @@ package kittyface.swing;
 
 import java.awt.*;
 import java.io.*;
-import java.net.*;
+import java.util.*;
 import javax.swing.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
@@ -10,28 +10,18 @@ import org.xml.sax.SAXException;
 
 public class WebPanel extends JPanel {
 
-	protected URL url = null;
-	protected Document domTree = null;
+	/** The document to be displayed. */
+	private Document document = null;
 	
+	/** The settings object. */
 	public final WebPanelSettings settings = new WebPanelSettings();
 	
-	public void setUrl(URL url){
-		this.url = url;
-	}
-	
-	public void setUrl(String urlString){
-		
-		try{
-			URL newUrl = new URL(urlString);
-			this.setUrl(newUrl);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-	}
+	/** The number of pixels in a line of text. */
+	public final static int TEXT_LINE_HEIGHT = 16; 
 	
 	public void load(){
 		try{
-			domTree = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url.openStream());
+			document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(settings.url.openStream());
 		} catch (IOException e) {
 			e.printStackTrace(); 
 		} catch (SAXException e) {
@@ -42,16 +32,7 @@ public class WebPanel extends JPanel {
 		}
 	}
 	
-	public void loadFromURL(URL url){
-		setUrl(url);
-		load();
-	}
-	
-	public void loadFromURL(String url){
-		setUrl(url);
-		load();
-	}
-	
+	/** Pretty much an alias for repaint atm */
 	public void render(){
 		repaint();
 	}
@@ -59,35 +40,37 @@ public class WebPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
-		g2.drawString(printNode(domTree), 0, 32);
-		
-		// Need to organise rendering better
-		// need more classes (e.g. hyperlinks)
-		// going to need more handlers
+		paintNode(document, g2);
 	}
 	
-	// TEST METHODS ONLY BELOW HERE //
-	
-	public void printDomTree() {
-		System.out.println(printNode(domTree));
+	/** Utility method to recursively paint Nodes on a given graphics object */
+	private void paintNode(Node n, Graphics2D g){
+		// Set coordintates
+		int x = 0;
+		int y = TEXT_LINE_HEIGHT;
+		// Create string list.
+		Vector<String> lines = new Vector<String>();
+		
+		// Recursively add strings to vector
+		addString(document, lines);
+		
+		// Paint strings
+		for(String line : lines){
+				g.drawString(line, x, y); //paint line
+				y += TEXT_LINE_HEIGHT; //next line
+		}
 	}
 	
-	private String printNode(Node n){
-		
-		// Testing output
-		String printNode = "";
-		NodeList nodes = n.getChildNodes();
+	/** Recusively add node text to Vector */
+	private void addString(Node n, Vector<String> v){
+		NodeList nodes = n.getChildNodes(); //Get child nodes
 		for(int i = 0; i < nodes.getLength(); i++) {
 			String line = nodes.item(i).getNodeValue();
 			if( line != null){
-				printNode += line.trim();
-				if(line != ""){
-					printNode += "\n";
-				}
+				v.add(line); //add line if not null
 			}
-			printNode += printNode(nodes.item(i));
+			addString(nodes.item(i), v); //Call on node added to add its children
 		}
-		return printNode;
 	}
-
+	
 }
