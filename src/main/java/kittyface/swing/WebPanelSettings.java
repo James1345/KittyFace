@@ -7,4 +7,6 @@ class WebPanelSettings{
 	public boolean images = false;
 	public boolean acceptCookies = false;
 
+	/** Protected to prevent initialization from outside package */
+	protected WebPanelSettings(){}
 }
