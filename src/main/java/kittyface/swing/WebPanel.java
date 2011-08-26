@@ -57,13 +57,25 @@ public class WebPanel extends JPanel {
 			}
 			break;
 		case "#comment": break; // Do Nothing on comment
-		default: 
+		default:
+			// Detect if it's an element
+			Element e = null;
+			if ( n.getAttributes() != null ) e = (Element)n; //perform cast
+			
+			// If it is an element
+			if ( e != null ){
+				if (e.getTagName() == "a"){ // If it's a link element
+					add(new JButton(n.getFirstChild().getNodeValue()));
+					break;
+				}
+			}
+			// For all nodes not causing a break
 			NodeList nodes = n.getChildNodes(); //Get child nodes
 			for(int i = 0; i < nodes.getLength(); i++) {
 				Node node = nodes.item(i);
 				add(node);
 			}
-		} 
+		}	 
 	}
 	
 }
