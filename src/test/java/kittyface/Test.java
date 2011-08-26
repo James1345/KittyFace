@@ -12,6 +12,7 @@ public class Test {
 		WebPanel p = new WebPanel();
 		p.settings.url = new URL("http://mithos.github.com/Sedenion/index.html");
 		p.load();
+		p.render();
 		p.setPreferredSize(new Dimension(500, 500));
 		
 		JFrame f = new JFrame();

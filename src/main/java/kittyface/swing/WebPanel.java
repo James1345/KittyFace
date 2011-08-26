@@ -32,45 +32,38 @@ public class WebPanel extends JPanel {
 		}
 	}
 	
-	/** Pretty much an alias for repaint atm */
+	/** Render the document */
 	public void render(){
-		repaint();
-	}
-
-	@Override
-	public void paintComponent(Graphics g){
-		Graphics2D g2 = (Graphics2D)g;
-		paintNode(document, g2);
+		removeAll();
+		add(document);
 	}
 	
-	/** Utility method to recursively paint Nodes on a given graphics object */
-	private void paintNode(Node n, Graphics2D g){
-		// Set coordintates
-		int x = 0;
-		int y = TEXT_LINE_HEIGHT;
-		// Create string list.
-		Vector<String> lines = new Vector<String>();
-		
-		// Recursively add strings to vector
-		addString(document, lines);
-		
-		// Paint strings
-		for(String line : lines){
-				g.drawString(line, x, y); //paint line
-				y += TEXT_LINE_HEIGHT; //next line
-		}
-	}
+	/** 
+	 * Add a node, recurse to add child nodes.
+	 *
+	 * Messy. modifying parameters D:
+	 *
+	 * @param n The node to add.
+	 */
+	private void add(Node n){
 	
-	/** Recusively add node text to Vector */
-	private void addString(Node n, Vector<String> v){
-		NodeList nodes = n.getChildNodes(); //Get child nodes
-		for(int i = 0; i < nodes.getLength(); i++) {
-			String line = nodes.item(i).getNodeValue();
+		switch (n.getNodeName()){
+		case "#text":
+			String line = n.getNodeValue();
 			if( line != null){
-				v.add(line); //add line if not null
+				for ( String word : line.split("\\s+") ){
+					add(new JLabel(word));
+				}
 			}
-			addString(nodes.item(i), v); //Call on node added to add its children
-		}
+			break;
+		case "#comment": break; // Do Nothing on comment
+		default: 
+			NodeList nodes = n.getChildNodes(); //Get child nodes
+			for(int i = 0; i < nodes.getLength(); i++) {
+				Node node = nodes.item(i);
+				add(node);
+			}
+		} 
 	}
 	
 }

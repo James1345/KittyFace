@@ -1,13 +1,10 @@
 package kittyface.swing;
 
-import javax.swing.*;
+import java.net.*;
 
-// A basic address bar, without all the features planned
-public class AddressBar extends JTextField {
+// An interface for an address bar
+public interface AddressBar {
 
-	/*
-	 * Removed All methods (they do not belong here anyway).
-	 */
-
+	public URL getURL();
 
 }
