@@ -16,9 +16,6 @@ public class WebPanel extends JPanel {
 	/** The settings object. */
 	public final WebPanelSettings settings = new WebPanelSettings();
 	
-	/** The number of pixels in a line of text. */
-	public final static int TEXT_LINE_HEIGHT = 16; 
-	
 	public void load(){
 		try{
 			document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(settings.url.openStream());
