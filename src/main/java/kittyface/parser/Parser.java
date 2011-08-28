@@ -1,4 +1,4 @@
-package kittyface.html;
+package kittyface.parser;
 
 class Parser{
 
