@@ -1,8 +1,6 @@
 package kittyface.swing;
 
-import java.awt.*;
 import java.io.*;
-import java.util.*;
 import javax.swing.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
